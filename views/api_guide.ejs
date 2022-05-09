@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>API Guide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+<body>
+<%- include('common_header.ejs') %>
+<main class="pb-0">
+    <div class="container">
+        <div class="about-content">
+            <h1 class="page-title text-center" id="os_ttl">
+                API integration
+            </h1>
+            <h2 class="text-center" id="os_subttl">
+                Sample format to integrate with <a href="https://apiplayer.app">API player</a>
+            </h2>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 30px">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 id="os_h4ttl1">Database structure</h4>
+                <div><h6>Movie db</h6>
+                    <pre class="prettyprint"><code>
+{
+  "_id": ObjectId("5ff493a8b6c6c0f9d0d5178c"),
+  "size": "2.46GB",
+  "thumb_pics": [
+    "https://yourdomainpath/aaa/bbb.jpg",
+    "https://yourdomainpath/aaa/bbb.jpg"
+  ],
+  "code": "ABC-002",
+  "description": "blah blah",
+  "title": "ABC blah blah",
+  "is_active": 1,
+  "play_links": [
+    "your hyper links"
+  ],
+  "cover_url": "https://yourdomainpath/aaa/bbb.jpg",
+  "created_time": 1609864104,
+  "thumbnail": "https://yourdomainpath/aaa/bbb.jpg",
+  "category_id": "5f75927b5c425008d254a788",
+  "updated_time": 1609910873
+}
+                        </code></pre>
+                </div>
+                <div>
+                    <h6>Category db</h6>
+                    <pre class="prettyprint"><code>
+{
+  "_id": ObjectId("5f75927b5c425008d254a788"),
+  "name": "Countryside",
+  "index": 1,
+  "is_active": 1
+}
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <h4 id="os_h4ttl1">Public API interface</h4>
+                <div><h6>Get list of movies</h6>
+                    <pre class="prettyprint"><code>
+curl --location --request GET 'https://pmdb.me/api_public/app-next-movie?is_load_app=1'
+                        </code></pre>
+                </div>
+                <div>
+                    <h6>Sample response</h6>
+                    <pre class="prettyprint"><code>
+{
+    "list": [
+        {
+            "play_links": [
+                "the hyper link"
+            ],
+            "thumb_pics": [
+                "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+            ],
+            "_id": "5ff493a8b6c6c0f9d0d5178c",
+            "size": "245KB",
+            "description": "Very beautifull clip",
+            "title": "CLIP-002555",
+            "cover_url": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
+            "thumbnail": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
+            "category_id": "5f75927b5c425008d254a788"
+        }
+    ],
+    "categories": [
+        {
+            "_id": "5f75927b5c425008d254a788",
+            "name": "Countryside",
+            "language_key": "Countryside",
+            "index": 1
+        }
+    ],
+    "lang_data": [],
+    "watched_movies": [],
+    "message": "OK",
+    "status": 200
+}
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<%- include('common_footer.ejs') %>
+</body>
+<script>
+    $(document).ready(function(){
+        checklang();
+        var currenturl = "/api_guide";
+        checkLogin(currenturl);
+        //clear active menu class
+        $('.nav-link', $('#navbar_container')).removeClass('active');
+        $('#api-lg', $('#navbar_container')).addClass('active');
+    });
+</script>
+</body>
+</html>

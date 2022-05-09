@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PMDB</title>
+  <%- include('common_head.ejs') %>
+  <style>
+    .iframe_vid::-webkit-scrollbar {
+      display:none;
+    }
+    .iframe_vid {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .iframe_vid {overflow:hidden;}
+  </style>
+</head>
+<body>
+  <%- include('common_header.ejs') %>
+  <main class="pb-0">
+    <div class="container">
+      <div class="about-content">
+        <h1 class="page-title text-center" id="freestock" style="color:#e84971;">
+          Porn Movie Database
+        </h1>
+        <h2 class="text-center" id="opendb">
+          Open database for all porn lovers
+        </h2>
+      </div>
+    </div>
+
+    <div class="text-center iframe_video">
+      <iframe src="/intro_video" frameborder="0" width="500" height="281" class="iframe_vid"></iframe>
+    </div>
+
+    <section class="about-site">
+      <div class="container">
+        <div class="row d-sm-flex">
+          <div class="col-sm-4 d-sm-flex">
+            <div class="white-box" >
+              <h3 id="h3text001">Archive of porn videos</h3>
+              <p id="ptext001">
+                Over 1 mil. hyperlinks to porn videos and their thumbnail, cover, snapshot images are stored at PMDB database.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4 d-sm-flex">
+            <div class="white-box">
+              <h3 id="h3text002">Open API for all users</h3>
+              <p id="ptext002">
+                Whether you're individual or business user, PMDB API is always free of charge. But please make sure to attribute your work to PMDB API.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4 d-sm-flex">
+            <div class="white-box">
+              <h3 id="h3text003">Built by volunteers</h3>
+              <p id="ptext003">
+                PMDB has been and will be built by enthusiastic volunteers who loves porn. Please join in our team by simple login by your email.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('common_footer.ejs') %>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          checklang();
+          var currenturl = "/";
+          checkLogin(currenturl);
+      });
+  </script>
+</body>
+</html>

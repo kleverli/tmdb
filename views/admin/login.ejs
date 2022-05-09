@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Login</title>
+    <!-- Required Meta Tags Always Come First -->
+    <%- include common_header.ejs %>
+
+    <script src="/admin/js/login_1.js"></script>
+</head>
+
+<body>
+<main>
+    <!-- Login -->
+    <section class="container g-py-100">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-lg-5">
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-py-40 g-px-30">
+                    <header class="text-center mb-4">
+                        <h2 class="h2 g-color-black g-font-weight-600">Login</h2>
+                    </header>
+
+                    <!-- Form -->
+                    <form class="g-py-15">
+                        <div class="mb-4">
+                            <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Username (*):</label>
+                            <input id="txt_account" class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--hover rounded g-py-15 g-px-15" type="text" />
+                        </div>
+
+                        <div class="g-mb-35">
+                            <div class="row justify-content-between">
+                                <div class="col align-self-center">
+                                    <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Password (*):</label>
+                                </div>
+                            </div>
+                            <input id="txt_password" class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--hover rounded g-py-15 g-px-15 mb-3"
+                                   type="password"/>
+                            <div class="row justify-content-between">
+                                <div class="col-4 align-self-center text-right">
+                                    <button class="btn btn-md u-btn-primary rounded g-py-13 g-px-25" type="button" onclick="loginPage.process_login();">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+                    <div id="label_message" class="form_mess"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Login -->
+
+    <!-- Copyright Footer -->
+    <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20" style="position:absolute;bottom:0;right:0;left:0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
+                    <div class="d-lg-flex">
+                        <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2020 &copy; SwipeX</small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- End Copyright Footer -->
+</main>
+
+<div class="u-outer-spaces-helper"></div>
+
+
+</body>
+
+</html>

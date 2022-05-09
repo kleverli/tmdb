@@ -1,0 +1,25 @@
+/* Common style */
+.pointer {cursor:pointer;}
+
+.margin_l_10 {margin-left: 10px;}
+
+.form-control-feedback {
+    right: 12px !important;
+}
+
+td.details-control {
+    background: url('../admin/dist/img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../admin/dist/img/details_close.png') no-repeat center center;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.detail-table td{
+    padding: 0 10px !important;
+    border: 1px solid #ccc !important;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Movie detail</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_movie.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#subMenuMovie', $('#sideNavMenu')).show();
+            $('#left_menu_movie_mgt', $('#sideNavMenu')).addClass('has-active');    //open it
+            $('#item_movie_upsert', $('#sideNavMenu')).addClass('active');
+            //search movies
+            adminMovie.get_detail();
+        });
+    </script>
+</head>
+
+<body>
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div id="label_not_found" class="hidden g-font-size-16 g-color-red">Detail not found</div>
+                <div class="col-md-8">
+                    <!-- Basic Text Inputs -->
+                    <div class="g-pa-15 g-pa-20--md g-mb-30">
+                        <table id="tbl_form">
+                            <tr>
+                                <td>Title (*)</td>
+                                <td><input id="txt_title" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>
+                                    <textarea id="txt_description" class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" rows="3"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="g-width-100">Magnet link</div></td>
+                                <td><input id="txt_magnet_link" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-600" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Thumbnail url (*)</td>
+                                <td>
+                                    <input id="txt_thumbnail_url" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10" type="text"/>
+                                    <img id="img_thumbnail" src="" class="movie_thumb_list g-ma-5"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cover url (*)</td>
+                                <td>
+                                    <input id="txt_cover_url" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10" type="text"/>
+                                    <img id="img_cover" src="" class="movie_thumb_list_landscape g-ma-5"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Size</td>
+                                <td>
+                                    <input id="txt_size" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-100" type="text" placeholder="x.xx GiB"/>
+                                    <span>Example: "4.5 GiB"</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Video length <br/>(in minutes)</td>
+                                <td>
+                                    <input id="txt_video_len" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-100" type="text" placeholder="xx"/>
+                                    <span>Example: "128"</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Share date <br/><strong>yyyy-mm-dd</strong></td>
+                                <td>
+                                    <input id="txt_share_date" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-200" type="text" placeholder="yyyy-mm-dd"/>
+                                    <span>Example: "2021-4-24"</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Note</td>
+                                <td>
+                                    <textarea id="txt_note" class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" rows="3"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Category</td>
+                                <td>
+                                    <select class="u-select--v3-select u-sibling g-width-200" id="select_category">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div>
+                                        <a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminMovie.insert_detail();">Save</a>
+                                        <span>(Default: active)</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- End Basic Text Inputs -->
+
+                </div>
+            </div>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2020 SwipeX. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>

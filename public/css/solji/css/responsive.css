@@ -1,0 +1,64 @@
+@media (max-width:1750px) {
+.solji_sec:before{ width:1000px; height:1000px;}
+}
+
+@media (max-width:1600px) {
+.solji_sec{ padding:5% 0 7% 0;}
+.solji_sec:before{ width:850px; height:850px;}
+}
+
+@media (max-width:1366px) {
+.solji_sec:before{ width:800px; height:800px; left: -5%;}
+.solji_sec h2{ margin-bottom:20px;}
+.solji_sec .img_1{ min-height:200px; margin-bottom:20px;}
+.api_btn{ margin-bottom:15px;}
+}
+
+@media (max-width:1200px) {
+.container{ width:96%; margin:0 auto; padding:0;}
+.solji_sec:before{ left:-10%;}
+.solji_sec figure iframe{ height:auto !important;}
+}
+
+/************ Main **************/
+@media (max-width: 991px) {
+.solji_sec:before{ width:630px; height:630px; left:-120px;}
+.solji_sec figure{ min-height:170px;}
+.wrapper{ align-self:inherit !important;}
+.solji_sec h2{ font-size:30px;}
+.solji_sec h2 strong{ font-size:41px;}
+.api_btn{ font-size:17px; padding:12px 20px;}
+.solji_sec .detail h3{ font-size:18px;}
+}
+
+@media (max-width: 767px) {
+html { -webkit-text-size-adjust:none;}
+.container{ width:93%; margin:0 auto; padding:0;}
+.solji_sec:before{ display:none;}
+.solji_sec h2{ font-size:30px; margin:0 0 170px 20px;}
+.solji_sec h2 strong{ font-size:41px;}
+.solji_sec .detail{ padding:40px 0 0 0;}
+.solji_sec{ padding:0; background:none;}
+.solji_sec figure.img_1{ display:none;}
+.solji_sec figure.img_2{ display:flex; margin-bottom:20px;}
+.solji_sec .inner{ background:url(../images/solji_bg.png) bottom 35% center no-repeat; background-size:125% auto;}
+.solji_sec i{ display:block; margin:0 0 0 -165px;}
+.solji_sec .detail p span{ display: block;}
+.solji_sec .detail p b{ display: none;}
+.solji_sec figure iframe{ margin:-9px !important;}
+/*.solji_sec .btn-block{ padding:0 15px;}
+.solji_sec figure.img_2{ padding:0 15px;}*/
+}
+
+/************ iphone **************/
+@media (max-width:600px) {
+html { -webkit-text-size-adjust:none;}
+.container{ width:91%;}
+.solji_sec h2{ font-size:20px; margin:0 0 60px -30px;}
+.solji_sec h2 strong{ font-size:24px;}
+.solji_sec .detail h3{ font-size:13px; margin:0 0 10px -90px;}
+.solji_sec .detail p{ font-size:14px; margin:0 0 0 -90px;}
+.api_btn{ font-size:16px; padding:15px 20px;}
+.solji_sec i img{ width:310px; height:310px;}
+.solji_sec .inner{ background:url(../images/solji_bg.png) bottom 45% center no-repeat; background-size: 125% auto;}
+}

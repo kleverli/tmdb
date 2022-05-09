@@ -1,0 +1,183 @@
+<!-- Sidebar Nav -->
+<div id="sideNav" class="col-auto u-sidebar-navigation-v1 u-sidebar-navigation--dark toggled u-side-nav--mini-hover-on u-side-nav--mini u-sidebar-navigation-v1--mini">
+    <ul id="sideNavMenu" class="u-sidebar-navigation-v1-menu u-side-nav--top-level-menu g-min-height-100vh mb-0">
+        <!-- Dashboards -->
+        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="/admin-dashboard">
+                                  <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                          <i class="hs-admin-home"></i>
+                        </span>
+                <span class="media-body align-self-center">Dashboard</span>
+            </a>
+
+        </li>
+        <!-- End Dashboards -->
+
+        <!-- Movie Management -->
+        <li id="left_menu_movie_mgt" class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="#!" data-hssm-target="#subMenuMovie">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-video-clapper"></i>
+                        </span>
+                <span class="media-body align-self-center">Movie Management</span>
+                <span class="d-flex align-self-center u-side-nav--control-icon">
+                            <i class="hs-admin-angle-right"></i>
+                        </span>
+                <span class="u-side-nav--has-sub-menu__indicator"></span>
+            </a>
+
+            <!-- Layouts Settings: Submenu-1 -->
+            <ul id="subMenuMovie" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a id="item_movie_list" class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="/admin-movie/list">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-view-list"></i>
+                                </span>
+                        <span class="media-body align-self-center">List</span>
+                    </a>
+                </li>
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a id="item_movie_upsert" class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="/admin-movie/detail">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-pencil"></i>
+                                </span>
+                        <span class="media-body align-self-center">Add new</span>
+                    </a>
+                </li>
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a id="item_movie_upload_subtitle" class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="/admin-movie/upload_subtitle">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-upload"></i>
+                                </span>
+                        <span class="media-body align-self-center">Upload subtitles</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Actress Management -->
+        <li id="left_menu_actress_mgt" class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="/admin-actress/list">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-user"></i>
+                        </span>
+                <span id="item_actress_list" class="media-body align-self-center">Actress Management</span>
+            </a>
+        </li>
+
+        <!-- Category Management -->
+        <li id="left_menu_category_mgt" class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="/admin-category/list">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-harddrives"></i>
+                        </span>
+                <span id="item_category_list" class="media-body align-self-center">Category Management</span>
+            </a>
+        </li>
+
+        <!-- Site Settings Management -->
+        <li id="left_menu_site_setting_mgt" class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="/admin-site-setting/detail">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-settings"></i>
+                        </span>
+                <span id="item_site_settings" class="media-body align-self-center">Site Settings Management</span>
+            </a>
+
+        </li>
+
+        <!-- Payment Management -->
+        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="#!" data-hssm-target="#subMenuPayment">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-money"></i>
+                        </span>
+                <span class="media-body align-self-center">Payment Management</span>
+                <span class="d-flex align-self-center u-side-nav--control-icon">
+                            <i class="hs-admin-angle-right"></i>
+                        </span>
+                <span class="u-side-nav--has-sub-menu__indicator"></span>
+            </a>
+
+            <!-- Layouts Settings: Submenu-1 -->
+            <ul id="subMenuPayment" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="javascript:alert('Phase 2');">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-view-list"></i>
+                                </span>
+                        <span class="media-body align-self-center">List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Report Management -->
+        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="#!" data-hssm-target="#subMenuReport">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-bar-chart"></i>
+                        </span>
+                <span class="media-body align-self-center">Report Management</span>
+                <span class="d-flex align-self-center u-side-nav--control-icon">
+                            <i class="hs-admin-angle-right"></i>
+                        </span>
+                <span class="u-side-nav--has-sub-menu__indicator"></span>
+            </a>
+
+            <!-- Layouts Settings: Submenu-1 -->
+            <ul id="subMenuReport" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="javascript:alert('Phase 2');">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-view-list"></i>
+                                </span>
+                        <span class="media-body align-self-center">List</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <!-- Contact Management -->
+        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="#!" data-hssm-target="#subMenuContact">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-email"></i>
+                        </span>
+                <span class="media-body align-self-center">Contact Management</span>
+                <span class="d-flex align-self-center u-side-nav--control-icon">
+                            <i class="hs-admin-angle-right"></i>
+                        </span>
+                <span class="u-side-nav--has-sub-menu__indicator"></span>
+            </a>
+
+            <!-- Layouts Settings: Submenu-1 -->
+            <ul id="subMenuContact" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                    <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12" href="javascript:alert('Phase 2');">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-view-list"></i>
+                                </span>
+                        <span class="media-body align-self-center">List</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <!-- Admin Management -->
+        <li id="left_menu_admin_mgt" class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+            <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" href="/admin-control/list">
+                      <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                        <i class="hs-admin-key"></i>
+                        </span>
+                <span id="item_admin_list" class="media-body align-self-center">Admin Management</span>
+            </a>
+
+        </li>
+
+
+    </ul>
+</div>
+<!-- End Sidebar Nav -->

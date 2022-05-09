@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Title -->
+    <title>Actress list</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_actress.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#left_menu_actress_mgt', $('#sideNavMenu')).addClass('has-active');
+            $('#item_actress_list', $('#sideNavMenu')).addClass('g-color-pink');
+            //
+            var page_index = common.get_url_param('page');
+            if (page_index == '' || isNaN(page_index) || parseInt(page_index)<=0){
+                page_index = 1;
+            }
+            var category_id = common.get_url_param('cat_id');
+            var keyword = common.get_url_param('keyword');
+            var status = common.get_url_param('status');
+            adminActress.get_pagination_list(page_index, category_id, keyword, status);
+            $('#txt_current_paging').unbind();
+            $('#txt_current_paging').bind('keypress', function(e){
+                if (e.which == 13){ //pressed Enter
+                    var input_page = $('#txt_current_paging').val().trim();
+                    if (isNaN(input_page) || input_page < 1){
+                        return; //invalid
+                    }
+                    if (parseInt($('#txt_total_pages').text()) >= input_page){
+                        window.location.href = '/admin-actress/list?page='+input_page+adminActress.compose_uri_params();
+                    }
+                }
+            });
+            $('#txt_keyword').on('keypress', function(e) {   //keypress will not work
+                if (e.which == 13){
+                    adminActress.search();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div class="card g-brd-gray-light-v7 g-rounded-3 g-mb-30">
+                    <div class="card-block g-pa-15 g-pa-30--sm">
+                        <h4 class="g-color-black g-mb-10">Advanced Search</h4>
+                        <div>
+                            <table>
+                                <thead>
+                                <th width="25%">Category</th>
+                                <th width="25%">Status</th>
+                                <th>Name (JP / TW / KR / EN)</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                            <select class="u-select--v3-select u-sibling w-100" id="select_category">
+                                                <option value="all">ALL</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                            <select class="u-select--v3-select u-sibling w-100" id="select_status">
+                                                <option value="all">ALL</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="g-pos-rel">
+                                                <input id="txt_keyword" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-px-14 g-py-10 g-width-300" type="text" placeholder="min 3 characters" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div><a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminActress.search();">Search</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive g-mb-40">
+                    <table class="table u-table--v3 g-color-black" id="real_tbl">
+                        <thead>
+                        <tr>
+                            <th>JP</th>
+                            <th>KR</th>
+                            <th>TW</th>
+                            <th>EN</th>
+                            <th>Category</th>
+                            <th>Avatar</th>
+                            <th>Active</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!-- data here -->
+                        </tbody>
+                    </table>
+                    <!-- pagination -->
+                    <div>
+                        <ul class="list-inline mb-0 g-margin-10">
+                            <li class="list-inline-item">
+                                <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="javascript:void(0);" onclick="adminActress.go_previous_page();" aria-label="Previous">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <i class="hs-admin-angle-left"></i>
+                                </span>
+                                    <span class="sr-only">Prev</span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="#!">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <input type="text" class="g-pa-5 g-width-40" id="txt_current_paging"/> / <span type="hidden" id="txt_total_pages"></span>
+                                </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="javascript:void(0);" onclick="adminActress.go_next_page();" aria-label="Next">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <i class="hs-admin-angle-right"></i>
+                                </span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <span>Total: <span id="total_actresses"></span></span>
+                    </div>
+                    <!-- END pagination -->
+                    <table id="tbl_template" class="hidden">
+                        <tr>
+                            <td><input type="text" class="jp"/></td>
+                            <td><input type="text" class="kr"/></td>
+                            <td><input type="text" class="tw"/></td>
+                            <td><input type="text" class="en"/></td>
+                            <td><span class="category"></span></td>
+                            <td><a target="_blank"><img class="img_actress" onerror="adminActress.show_default_avatar(this);"/></a></td>
+                            <td><input type="checkbox" class="chk_active" onclick="adminActress.toggleCheckboxActive(this);"/></td>
+                            <td>
+                                <i class="hs-admin-save g-font-size-18 g-mr-10 g-mr-15--md g-color-pink--hover pointer" title="Save this actress" onclick="adminActress.save_current_row(this);"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2021 SwipeX. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>

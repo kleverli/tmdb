@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Title -->
+    <title>Category list</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_user.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#left_menu_user_mgt', $('#sideNavMenu')).addClass('has-active');
+            $('#item_user_list', $('#sideNavMenu')).addClass('g-color-pink');
+            //
+            var page_index = common.get_url_param('page');
+            if (page_index == '' || isNaN(page_index) || parseInt(page_index)<=0){
+                page_index = 1;
+            }
+            var keyword = common.get_url_param('keyword');
+            var status = common.get_url_param('status');
+            var source = common.get_url_param('source');
+            adminMovie.get_pagination_list(page_index, category_id, keyword, status, min_speed, max_speed, source);
+
+        });
+    </script>
+</head>
+
+<body>
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div class="table-responsive g-mb-40">
+                    <table class="table u-table--v3 g-color-black" id="real_tbl">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Expire date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!-- data here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2021 SwipeX. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Site setting</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_site_setting.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#left_menu_site_setting_mgt', $('#sideNavMenu')).addClass('has-active');    //open it
+            $('#item_site_settings', $('#sideNavMenu')).addClass('g-color-pink');
+        });
+    </script>
+</head>
+
+<body>
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div class="col-md-8">
+                    <!-- Basic Text Inputs -->
+                    <div class="g-pa-15 g-pa-20--md g-mb-30">
+                        <table id="tbl_form">
+                            <tr>
+                                <td>Homepage torrent link</td>
+                                <td>
+                                    <textarea id="home_torrent_link" class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4" rows="10" cols="200"><%=detail.home_torrent_link %></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div><a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminSiteSetting.save_detail();">Save</a></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- End Basic Text Inputs -->
+
+                </div>
+            </div>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2021. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>

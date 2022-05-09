@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+/*
+font-family: 'Lato', sans-serif;
+*/
+
+@font-face {
+    font-family: 'YANGJIN';
+    src: url('YANGJIN.eot');
+    src: url('YANGJIN.eot?#iefix') format('embedded-opentype'), url('../fonts/YANGJIN.woff2') format('woff2'), url('../fonts/YANGJIN.woff') format('woff'), url('../fonts/YANGJIN.ttf') format('truetype'),        url('../fonts/YANGJIN.svg#YANGJIN') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+html, body{ height:100%;}
+body{ padding:0; margin:0; font-size:12px; color:#000; font-family: 'Lato', sans-serif;}
+a {outline:none !important; text-decoration:none;
+-webkit-transition: all .6s ease-in-out; -moz-transition: all .6s ease-in-out; -o-transition: all .6s ease-in-out; -ms-transition: all .6s ease-in-out; transition:all .6s ease-in-out;}
+a:hover, a:focus, select:focus, button:focus { outline:none; text-decoration:none;}
+* { margin:0; padding:0;}
+img { border:none; vertical-align:middle; max-width:100%;}
+li{ list-style:none;}
+h1, h2, h3, h4, h5, h6, input, select, textarea, button{ outline:none !important; font-family: 'YANGJIN';}
+input, textarea, select{ /*-moz-appearance: none; -webkit-appearance: none;*/}
+
+.container{ width:96%; max-width:1170px; margin:0 auto; padding:0;}
+
+
+/***********  Section Part  ************/
+
+section{ width:100%; height:100%; max-width:1920px; margin:0 auto; padding:0px; display:flex; position:relative;}
+
+.wrapper{ width:100%; float:left; margin:0; padding:0; /*align-self:center !important;*/}
+
+.solji_sec{ width:100%; float:left; margin:0; padding:5% 0 11% 0; background:url(../images/solji_bg.png) center center no-repeat; background-size:cover; position:relative;}
+.solji_sec:before{ content:""; width:1080px; height:1080px; background:url(../images/solji_img.png) center center no-repeat; background-size:100% 100%; position:absolute; top:0; left:0;}
+.solji_sec .inner{ width:100%; float:left; margin:0; padding:0; overflow:hidden; position:relative;}
+.solji_sec i{ float:left; margin:0 0 0 -150px; padding:0; position:relative; height:100%; display:none;}
+.solji_sec i img{ width:600px; height:600px; object-fit:cover;}
+.solji_sec .detail{ width:100%; float:left; margin:0; padding:0;}
+.solji_sec h2{ margin:0 0 40px 0; padding:0; font-size:40px; color:#000; font-weight:600; line-height:normal;}
+.solji_sec h2 strong{ display:block; font-size:55px; margin-top:5px;}
+.solji_sec.eng h2{ font-family: 'Lato', sans-serif;}
+.solji_sec figure{ width:100%; float:left; margin:0; padding:0; font-size:22px; color:#fff; text-align:center; text-align:left; line-height:inherit;}
+.solji_sec figure iframe{ border:none; line-height:inherit; margin:0 !important;}
+.solji_sec figure iframe body{ margin:0; !important;}
+.api_btn{ width:100%; float:left; margin:0 0 30px 0; padding:15px 30px; background:#6dcbff; border-radius:10px; font-size:20px; color:#fff; font-weight:700; text-align:center; box-shadow:4px 5px 5px rgba(0,0,0,0.2);}
+.solji_sec figure.img_2{ display:none;}
+.api_btn:hover{ background:#6dcbff; color:#fff;}
+.solji_sec .detail h3{ margin:0 0 10px 0; padding:0; font-size:20px; color:#000; font-weight:600; font-family: 'Lato', sans-serif; clear:both;}
+.solji_sec .detail p{ margin:0; padding:0; font-size:15px; color:#000;}
+.solji_sec .detail p b{ font-weight:normal;}
+.solji_sec .detail p span{ display:none;}

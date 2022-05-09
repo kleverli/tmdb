@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Title -->
+    <title>Movie list</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_movie.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            //
+            $('#subMenuMovie', $('#sideNavMenu')).show();
+            $('#left_menu_movie_mgt', $('#sideNavMenu')).addClass('has-active');
+            $('#item_movie_list', $('#sideNavMenu')).addClass('active');
+            //
+            var page_index = common.get_url_param('page');
+            if (page_index == '' || isNaN(page_index) || parseInt(page_index)<=0){
+                page_index = 1;
+            }
+            var category_id = common.get_url_param('cat_id');
+            var keyword = common.get_url_param('keyword');
+            var min_speed = common.get_url_param('min_speed');
+            var max_speed = common.get_url_param('max_speed');
+            var status = common.get_url_param('status');
+            var source = common.get_url_param('source');
+            var has_subtitle = common.get_url_param('has_subtitle');
+            var wasabi_url = common.get_url_param('wasabi_url');
+            adminMovie.get_pagination_list(page_index, category_id, keyword, status, min_speed, max_speed, source, has_subtitle, wasabi_url);
+            $('#txt_current_paging').unbind();
+            $('#txt_current_paging').bind('keypress', function(e){
+                if (e.which == 13){ //pressed Enter
+                    var input_page = $('#txt_current_paging').val().trim();
+                    if (isNaN(input_page) || input_page < 1){
+                        return; //invalid
+                    }
+                    if (parseInt($('#txt_total_pages').text()) >= input_page){
+                        window.location.href = '/admin-movie/list?page='+input_page+adminMovie.compose_uri_params();
+                    }
+                }
+            });
+            //
+            $('.movie_thumb_list').unbind();    //remove mouse over event
+            //setup key events
+            $(document).on('keyup', function(e) {   //keypress will not work
+                adminMovie.listen_key_press(e, e.which);
+            });
+            $('#txt_keyword').on('keypress', function(e) {   //keypress will not work
+                if (e.which == 13){
+                    adminMovie.search();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="u-side-nav-mini">
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div class="card g-brd-gray-light-v7 g-rounded-3 g-mb-30">
+                    <div class="card-block g-pa-15 g-pa-30--sm">
+                        <h4 class="g-color-black g-mb-10">Advanced Search</h4>
+                        <div>
+                            <table>
+                                <thead>
+                                    <th width="15%">Category</th>
+                                    <th width="15%">Link Source</th>
+                                    <th width="15%">Wasabi</th>
+                                    <th width="10%">Status</th>
+                                    <th width="15%">Speed</th>
+                                    <th width="10%">Subtitle</th>
+                                    <th>Keyword (Title / Description / Note)</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_category">
+                                                    <option value="all">ALL</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_source">
+                                                    <option value="all">ALL</option>
+                                                    <option value="webseed">Webseed</option>
+                                                    <option value="sukebei">Sukebei</option>
+                                                    <option value="javdb">JAVDB</option>
+                                                    <option value="other">Others (none of above)</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_wasabi_url">
+                                                    <option value="all">ALL</option>
+                                                    <option value="1">YES</option>
+                                                    <option value="0">NO</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_status">
+                                                    <option value="all">ALL</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_speed">
+                                                    <option value="all">ALL</option>
+                                                    <option value="300">< 300kb/s</option>
+                                                    <option value="700">300kb/s - 700kb/s</option>
+                                                    <option value="1000">700kb/s - 1MB/s</option>
+                                                    <option value="999999999"> > 1MB/s</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group u-select--v3 g-pos-rel g-brd-gray-light-v7 rounded-0 mb-0">
+                                                <select class="u-select--v3-select u-sibling w-100" id="select_subtitle">
+                                                    <option value="all">ALL</option>
+                                                    <option value="1">YES</option>
+                                                    <option value="0">NO</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="g-pos-rel">
+                                                    <input id="txt_keyword" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-px-14 g-py-10 g-width-300" type="text" placeholder="min 3 characters" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div><a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminMovie.search();">Search</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div><a href="javascript:void(0);" class="btn btn-md u-btn-cyan g-mr-10 g-mb-15" onclick="adminMovie.update_speed();">Update speed of all active movies</a></div>
+
+
+
+                <div class="table-responsive g-mb-40">
+                    <table class="table u-table--v3 g-color-black" id="real_tbl">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Thumbnail</th>
+                            <th>Cover</th>
+                            <th>Category</th>
+                            <th>Magnet link</th>
+                            <th>Avg speed</th>
+                            <th>Active</th>
+                            <th>Actions</th>
+                            <th><input type="checkbox" onclick="adminCommon.toggleCheckboxesSelection(this, 'real_tbl', 'chk_selection');"/></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+            </div>
+                <!-- pagination -->
+                <div>
+                    <ul class="list-inline mb-0 g-margin-10">
+                        <li class="list-inline-item">
+                            <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="javascript:void(0);" onclick="adminMovie.go_previous_page();" aria-label="Previous">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <i class="hs-admin-angle-left"></i>
+                                </span>
+                                <span class="sr-only">Prev</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="#!">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <input type="text" class="g-pa-5 g-width-40" id="txt_current_paging"/> / <span type="hidden" id="txt_total_pages"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-secondary--hover g-rounded-4 g-py-8 g-px-12" href="javascript:void(0);" onclick="adminMovie.go_next_page();" aria-label="Next">
+                                <span class="g-line-height-1 g-valign-middle" aria-hidden="true">
+                                    <i class="hs-admin-angle-right"></i>
+                                </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <span>Total: <span id="total_movies"></span></span>
+                    <div class="text-md-right"><a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminMovie.bulk_update_movies();">Bulk update</a></div>
+                </div>
+            </div>
+            <table id="template_tbl" class="hidden">
+                <tr data-id="" class="normal_tr" data-size="" data-pics="">
+                    <td>
+                        <a class="link_data_title" onclick="adminMovie.open_detail_popup(this);" href="javascript:void(0);"></a>
+                        <br/>
+                        <i class="hs-admin-video-camera g-font-size-18 g-mr-10 g-mr-15--md g-color-blue g-color-pink--hover pointer has_trailer hidden" title="Having trailer" onclick="adminMovie.show_trailer_popup(this);"></i>
+                        <i class="hs-admin-image g-font-size-18 g-mr-10 g-mr-15--md has_snapshot hidden" title="Having snapshots"></i>
+                        <i class="hs-admin-comments g-font-size-18 g-mr-10 g-mr-15--md has_subtitle hidden" title="Having subtitle"></i>
+                    </td>
+                    <td>
+                        <textarea class="data_description form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" rows="2"></textarea>
+                        <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-px-14 g-py-10 data_note" type="text"/>
+                    </td>
+                    <td><img src="" class="data_thumbnail movie_thumb_list"/></td>
+                    <td><img src="" class="data_cover movie_thumb_list_landscape"/></td>
+                    <td>
+                        <select class="data_category"></select>
+                        <div class="data_share_date"></div>
+                    </td>
+                    <td>
+                        <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-px-14 g-py-10 magnet_link" type="text" placeholder="Magnet link"/>
+                        <input class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-px-14 g-py-10 data_org_url" type="text"/>
+                    </td>
+                    <td class="data_speed"></td>
+                    <td><input type="checkbox" class="chk_active" onclick="adminMovie.toggleCheckboxActive(this);"/></td>
+                    <td>
+                        <i class="hs-admin-save g-font-size-18 g-mr-10 g-mr-15--md g-color-pink--hover pointer" title="Save this movie" onclick="adminMovie.save_current_row(this);"></i>
+                    </td>
+                    <td><input type="checkbox" class="chk_selection" onclick="adminCommon.toggleCheckboxSelection(this, 'real_tbl');"/></td>
+                </tr>
+            </table>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2020 SwipeX. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+<div class="div_big_img hidden" id="div_big_img">
+    <img id="img_preview" src=""/>
+</div>
+<div class="div_backdrop hidden" id="div_backdrop"></div>
+
+<div class="div_movie_extra_detail hidden" id="div_movie_extra_detail" data-id="">
+    <table width="100%">
+        <tr>
+            <td>Title (*)</td>
+            <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_title" type="text"/></td>
+            <td>Magnet (default)</td>
+            <td>
+                <input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_magnet_default" type="text"/>
+            </td>
+            <td>
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5 btn_select_link_default" onclick="adminMovie.load_original_links();">Select</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Thumbnail</td>
+            <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_thumbnail_url" type="text"/></td>
+            <td>Subtitle</td>
+            <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_subtitle_link" placeholder=".srt,.vtt,.smi,.ass" type="text"/></td>
+            <td>
+                <input type="file" id="subtitle_file" data-movie-id="" accept=".srt,.vtt,.smi,.ass" onchange="adminMovie.on_selected_subtitle(this);"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Cover</td>
+            <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_cover_url" type="text"/></td>
+            <td>Snapshot</td>
+            <td colspan="2">
+                <textarea class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_snapshots" rows="3"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Size</td>
+            <td>
+                <table>
+                    <tr>
+                        <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-100 txt_size" type="text"/></td>
+                        <td><select id="popup_category" class="popup_category"></select></td>
+                        <td><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-100 video_len" type="text"/></td>
+                        <td><span class="data_share_date"></span></td>
+                    </tr>
+                </table>
+            </td>
+            <td>Note</td>
+            <td colspan="2"><input class="form-control g-brd-gray-light-v7 g-brd-gray-light-v3 g-rounded-4 g-width-400 txt_note" type="text"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img class="popup_cover"/>
+            </td>
+            <td colspan="2" style="text-align:right;">
+                <img class="popup_thumb_pic"/>
+                <input type="hidden" class="hidden thumb_pics_list"/>
+            </td>
+            <td>
+                <span class="current_snapshot_index g-color-red">0</span> / <span class="snapshot_total g-color-red">0</span>
+            </td>
+        </tr>
+    </table>
+    <table class="g-color-black g-mt-10">
+        <tr>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.load_prev_popup_title();">⬅</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.load_next_popup_title();">➡</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.load_popup_snapshot(false);">⬆</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.load_popup_snapshot(true);">⬇</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.load_current_movie_link();">F2</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.toggle_popup_activation();">F8</a>
+            </td>
+            <td width="12%">
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.close_detail_popup();">Esc</a>
+            </td>
+            <td>
+                <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="adminMovie.update_extra_detail();">Enter</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Previous title
+            </td>
+            <td>
+                Next title
+            </td>
+            <td>
+                Previous photo
+            </td>
+            <td>
+                Next photo
+            </td>
+            <td>
+                Play link
+            </td>
+            <td>
+                Activate / Deactivate
+            </td>
+            <td>
+                Close popup
+            </td>
+            <td>
+                Update
+            </td>
+        </tr>
+    </table>
+    <img src="/admin/plugins/jQuery-File-Upload/img/loading.gif" class="poup_loading hidden"/>
+</div>
+
+<div class="div_original_links hidden" id="div_original_links">
+    <table width="100%">
+    </table>
+    <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5" onclick="$('#div_original_links').hide();">Close (Esc)</a>
+</div>
+
+<div class="div_movie_extra_detail hidden" id="div_trailer_player">
+    <video id="trailer_video" playsinline="" controls="" muted="" width="640" height="480">
+        <source type="video/mp4"/>
+    </video>
+</div>
+
+<table id="tbl_link_tmpl" class="tbl_link_tmpl hidden">
+    <tr>
+        <td width="25%">
+            <a href="" class="link_title"></a>
+        </td>
+        <td width="25%">
+            <span class="size"></span>
+        </td>
+        <td width="25%">
+            <span class="share_date"></span>
+        </td>
+        <td>
+            <a href="javascript:void(0);" class="btn btn-md btn-dark g-mr-5 btn_select" onclick="adminMovie.replace_movie_link(this);">Select</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

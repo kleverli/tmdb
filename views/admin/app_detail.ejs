@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Desktop app setting</title>
+
+    <%- include common_header.ejs %>
+    <script src="/admin/js/admin_app_setting.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#left_menu_app_setting_mgt', $('#sideNavMenu')).addClass('has-active');    //open it
+            $('#item_app_settings', $('#sideNavMenu')).addClass('g-color-pink');
+        });
+    </script>
+</head>
+
+<body>
+<!-- Header -->
+<%- include admin_topbar.ejs %>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-hidden">
+        <!-- Sidebar Nav -->
+        <%- include admin_left_panel.ejs %>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+
+            <!-- core content -->
+            <div class="g-pa-20">
+                <div class="col-md-8">
+                    <!-- Basic Text Inputs -->
+                    <div class="g-pa-15 g-pa-20--md g-mb-30">
+                        <table id="tbl_form">
+                            <tr>
+                                <td>Active Domains (*)</td>
+                                <td>
+                                    1. <input class="txt_domain form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.active_domains!=null?detail.active_domains[0]:'' %>"/>
+                                    2. <input class="txt_domain form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.active_domains!=null?detail.active_domains[1]:'' %>"/>
+                                    3. <input class="txt_domain form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.active_domains!=null?detail.active_domains[2]:'' %>"/>
+                                    4. <input class="txt_domain form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.active_domains!=null?detail.active_domains[3]:'' %>"/>
+                                    5. <input class="txt_domain form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.active_domains!=null?detail.active_domains[4]:'' %>"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Contact email (*)</td>
+                                <td>
+                                    <input id="txt_contact_email" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-400" type="text" value="<%= detail.contact_email %>"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="g-width-100">Latest version</div></td>
+                                <td><input id="txt_latest_version" class="form-control form-control-md g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-px-14 g-py-10 g-width-100" type="text" value="<%= detail.latest_version %>"/></td>
+                            </tr>
+                            <tr>
+                                <td>Upgrade version language key</td>
+                                <td>
+                                    <textarea id="txt_upgrade_note" class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" rows="3"><%= detail.upgrade_version_note %></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Paypal settings</td>
+                                <td>
+                                    <textarea class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" disabled rows="3"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Google settings</td>
+                                <td>
+                                    <textarea class="form-control form-control-md g-resize-none g-brd-gray-light-v7 g-brd-gray-light-v3--focus g-rounded-4 g-width-400" disabled rows="3"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div><a href="javascript:void(0);" class="btn btn-md u-btn-blue g-mr-10 g-mb-15" onclick="adminAppSetting.save_detail();">Save</a></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- End Basic Text Inputs -->
+
+                </div>
+            </div>
+            <!-- END core content -->
+            <!-- Footer -->
+            <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Copyrights -->
+                    <div class="col-md-4 text-center text-md-right">
+                        <small class="d-block g-font-size-default">&copy2020 SwipeX. All Rights Reserved.</small>
+                    </div>
+                    <!-- End Footer Copyrights -->
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>
