@@ -19,8 +19,6 @@ const { resolve } = require("path");
 
 
 
-
-
 /*get magnet url object from rarbg-api
   create function for get magnet url from rarbgapi.
   create object for magnet url
@@ -930,8 +928,8 @@ var job = new CronJob("0 0 * * *", async (req, res) => {
             if (
               getData.torrent2
             ) {
-              create_movie.torrent_url_2 = getData.torrent2;
-              create_movie.file_size_2 = getData.torrent2.size;
+              create_movie.torrent_url_2 = {};
+              create_movie.file_size_2 = "";
             }
             if (
               getData.torrent3
