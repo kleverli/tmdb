@@ -34,7 +34,7 @@ var tools = require('./routes/tools');
 require('dotenv').config();
 
 var app = express();
-var server = require('http').Server(app);
+var server = require('http').Server(app).listen(8003);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,6 +55,7 @@ app.use('/data', express.static('app_data'));		//folder contains resources: imag
 app.set('trust proxy', 1); // trust first proxy
 //
 var DB_URL = process.env.MLAB_MONGODB_OTC_URI;	//production
+console.log("Port");
 //Connect to mongodb
 var connect = function () {
   var options = {
