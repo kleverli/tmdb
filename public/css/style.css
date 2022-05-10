@@ -316,7 +316,7 @@ main{padding: 50px 0;}
     .slider-overlay h1{font-size: 1.8rem;}
     .btn-yellow{ font-size: 16px; padding: 1em 0.9em; max-width: fit-content;}
     .api-player-step ul li:not(:last-child){margin-right: 10px;}
-    .slider-overlay{top: 32%;}
+    .slider-overlay{top: 45%;}
 
 }
 @media(max-width:399px){
