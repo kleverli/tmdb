@@ -88,7 +88,7 @@ var Constant	= {
 		MOVIE: "movie",
 		TVSERIES: "tvseries",
 		YEAR: 2021,
-		URL_SERVER_LINK:"http://18.183.116.70/api/",
+		URL_SERVER_LINK:"https://tmdbapi.me/api/",
 		GET_POPULAR_MOVIE_API:"https://api.themoviedb.org/3/movie/popular?api_key=",
 		IMDB_API_KEY:"k_ofp6bn11",
 		S3_BUCKET: 'https://s3.ap-northeast-1.wasabisys.com/swipesub/'
