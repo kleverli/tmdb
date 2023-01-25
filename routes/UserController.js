@@ -600,6 +600,8 @@ router.post('/checklang', async function(req, res) {
             lang = "JP";
         } else if (country == "CN") {
             lang = "ZH";
+        } else if (country == "TH") {
+            lang = "TH";
         }
         // var lngs = req.i18n.changeLanguage(lang); // will not load that!!! assert it was preloaded
         // var exists = req.i18n.exists('myKey')
