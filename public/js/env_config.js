@@ -1,5 +1,5 @@
 //
 /*********** DEV **************/
 // var isDev = true;
-var urlserverlink = "https://tmdbapi.me/api/";
-var urlserverlinkhtml = "https://tmdbapi.me";
+var urlserverlink = "https://multiflix.cc/api/";
+var urlserverlinkhtml = "https://multiflix.cc";
