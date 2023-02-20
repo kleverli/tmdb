@@ -57,6 +57,33 @@ app.set('trust proxy', 1); // trust first proxy
 var DB_URL = process.env.MLAB_MONGODB_OTC_URI;	//production
 console.log("Port");
 //Connect to mongodb
+var connect = function () {
+	var options = {
+	  socketTimeoutMS: 0,
+	  keepAlive: true,
+	  useUnifiedTopology: true, //able to retry connection
+	  useNewUrlParser: true,
+	  dbName: "imdb7_plus",
+	};
+	mongoose.connect(DB_URL, options);
+  };
+  connect();
+  mongoose.Promise = require("bluebird");
+  mongoose.connection.on("error", console.log);
+  // mongoose.connection.on("disconnected", connect);
+  app.use(
+	session({
+	  secret: "3786829b-9f59-41cc-9a70-c1f986b90737",
+	  saveUninitialized: false, //prevent overflow
+	  resave: true,
+	  cookie: {
+		maxAge: 3600000 * 2, //2 Hours
+		expires: 3600000 * 2, //2 Hours
+		// secure: true		//can access cookie every routers
+	  },
+	  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+	})
+  );
 //========== define Rest response
 var rest_resp_options = {
 		showStatusCode: true,
