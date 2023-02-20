@@ -45,35 +45,42 @@ router.get('/cate/list', function(req, res, next) {
     
 });
 
-router.get('/subtitle-link/:movieId', function(req, res, next) {
+router.get("/subtitle-link/:movieId", function (req, res, next) {
     var movieId = req.params.movieId;
     let common = new Common();
-    if (common.isEmpty(movieId)){
-        res.rest.success({message: "Missing movie id"});
-        return;
+    if (common.isEmpty(movieId)) {
+      res.rest.success({ message: "Missing movie id" });
+      return;
     }
     var movie = new MovieN();
-    var fileds = '_id subtitle_link';
-    movie.findOne({"_id":movieId}, fileds, function(resp){
-        if (resp.result == Constant.OK_CODE && resp.data) {
-            var mv = resp.data;
-            var links = mv["subtitle_link"];
-            var mvId = mv["_id"];
-            if (links && links.length > 0){
-                for (const subtitle of links) {
-                    for(var key in subtitle){
-                        subtitle[key] = Constant.S3_BUCKET + mvId + "/" + subtitle[key];
-                    }
-                }
-            } else {
-                mv["subtitle_link"] = []
+    var fileds = "_id subtitle_link";
+    movie.findOne({ _id: movieId }, fileds, function (resp) {
+      if (resp.result == Constant.OK_CODE && resp.data) {
+        var mv = resp.data;
+        var links = mv["subtitle_link"];
+        var mvId = mv["_id"];
+        var newLinks = [];
+        if (links && links.length > 0) {
+          var linkItem;
+          for (const subtitle of links) {
+            if (subtitle["language"] && subtitle["file_link"]) {
+              linkItem = {};
+              var key = subtitle["language"].toUpperCase();
+              var url = Constant.S3_BUCKET + mvId + "/" + subtitle["file_link"];
+              linkItem[key] = url;
+              newLinks.push(linkItem);
+              // subtitle["file_link"] = ;
             }
-            res.rest.success({data: mv});
-        }else {
-            res.rest.success(resp);
+          }
         }
+        mv["_doc"]["subtitle_link"] = newLinks;
+  
+        res.rest.success({ data: mv });
+      } else {
+        res.rest.success(resp);
+      }
     });
-});
+  });
 
 router.get('/movie/page-list', function (req, res, next) {
     var condition = { "is_active": 1 };
@@ -422,48 +429,32 @@ movie.findOne({ _id: movieId }, fileds, function (resp) {
 });
 });
 
-router.get('/movie/actor/:movieId', function(req, res, next) {
+router.get("/movie/actors/:movieId", function (req, res, next) {
     var movieId = req.params.movieId;
     let common = new Common();
-    if (common.isEmpty(movieId)){
-        res.rest.success({message: "Missing movie id"});
-        return;
+    if (common.isEmpty(movieId)) {
+      res.rest.success({ message: "Missing movie id" });
+      return;
     }
-
+  
     var movieDetails = new MovieDetails();
-    movieDetails.findOne({movie_id:mongoose.Types.ObjectId(movieId)}, function(resp){
+    //search in movie category instead
+    movieDetails.findOne(
+      { movie_id: mongoose.Types.ObjectId(movieId) },
+      function (resp) {
         if (resp.result == Constant.OK_CODE && resp.data) {
-            if (resp.data.cast && resp.data.cast.length > 0){
-                var arrCast = resp.data.cast;
-                var ids = [];
-                for (var i = 0; i < arrCast.length; i++){
-                    ids.push(arrCast[i].person_id);
-                }
-                var person = new Person();
-                person.getAllNoPaging({"person_id": {"$in":ids}}, function(resp_p){
-                    if(resp_p.data){
-                        var arr = [], item;
-                        for (var i = 0; i < arrCast.length; i++){
-                            item = getItemByProperty(resp_p.data, "person_id", arrCast[i].person_id)
-                            if (item){
-                                arrCast[i]["profile_path"] = item.profile_path;
-                                arrCast[i]["also_known_as"] = item.also_known_as;
-                            }
-                        }
-                        //resp_p.data = arrCast
-                        res.rest.success({data:arrCast});
-                    } else {
-                        res.rest.success( {data:[]});
-                    }
-                });
-            } else {
-                res.rest.success( {data:[]});
-            }
-        } else{
-            res.rest.success({message: Constant.NOT_FOUND});
+          if (resp.data.cast && resp.data.cast.length > 0) {
+            var arrCast = resp.data.cast;
+            getMoviesActorsDetails(arrCast, res);
+          } else {
+            res.rest.success({ data: [] });
+          }
+        } else {
+          res.rest.success({ message: Constant.NOT_FOUND });
         }
-    });
-});
+      }
+    );
+  });
 
 router.get('/country-list', function(req, res, next) {
     var countries = [
@@ -486,5 +477,36 @@ router.get('/country-list', function(req, res, next) {
     ]
     res.rest.success({data: countries});
 });
+
+function getMoviesActorsDetails(arrCast, res) {
+    var ids = [];
+    for (var i = 0; i < arrCast.length; i++) {
+      ids.push(arrCast[i].person_id);
+    }
+    var person = new Person();
+    person.getAllNoPaging({ person_id: { $in: ids } }, function (resp_p) {
+      if (resp_p.data) {
+        var arr = [],
+          item;
+        for (var i = 0; i < arrCast.length; i++) {
+          item = getItemByProperty(
+            resp_p.data,
+            "person_id",
+            arrCast[i].person_id
+          );
+          if (item) {
+            arrCast[i]["profile_path"] = item.profile_path;
+            arrCast[i]["also_known_as"] = null
+            arrCast[i]["popularity"] = item.popularity || null
+          }
+        }
+        //resp_p.data = arrCast
+        arrCast.sort((a, b) => b.popularity - a.popularity);
+        res.rest.success({ data: arrCast });
+      } else {
+        res.rest.success({ data: [] });
+      }
+    });
+  }
 
 module.exports = router;
