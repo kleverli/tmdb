@@ -497,7 +497,7 @@ function getMoviesActorsDetails(arrCast, res) {
           if (item) {
             arrCast[i]["profile_path"] = item.profile_path;
             arrCast[i]["also_known_as"] = null
-            arrCast[i]["popularity"] = item.popularity || null
+            arrCast[i]["popularity"] = item["_doc"].popularity || null
           }
         }
         //resp_p.data = arrCast
