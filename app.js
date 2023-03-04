@@ -63,7 +63,7 @@ var connect = function () {
 	  keepAlive: true,
 	  useUnifiedTopology: true, //able to retry connection
 	  useNewUrlParser: true,
-	  dbName: "imdb7_plus",
+	  dbName: "multiflix-web",
 	};
 	mongoose.connect(DB_URL, options);
   };
@@ -73,7 +73,7 @@ var connect = function () {
   // mongoose.connection.on("disconnected", connect);
   app.use(
 	session({
-	  secret: "3786829b-9f59-41cc-9a70-c1f986b90737",
+	  secret: "xxxx",
 	  saveUninitialized: false, //prevent overflow
 	  resave: true,
 	  cookie: {
