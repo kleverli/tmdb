@@ -1,5 +1,4 @@
 /*
-author: Martin SangDo
 //used in all pages
  */
 var submitting = false;
