@@ -32,8 +32,7 @@ var CONST = {
     LBL_MESS_CUSTOM: '#lbl_mess_custom',
     LBL_MESS_ERROR_CLASSNAME: 'g-color-red',
     LBL_MESS_INFO_CLASSNAME: 'g-color-green',
-    S3_BUCKET: 'https://s3.ap-northeast-1.wasabisys.com/swipesub/',
-    //S3_BUCKET: 'https://pubbucketapi.s3-ap-northeast-1.amazonaws.com/'
+    S3_BUCKET: 'https://pubbucketapi.s3-ap-northeast-1.amazonaws.com/',    
 };
 //response message
 var RESP_MESS = {
